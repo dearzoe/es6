@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c54afd12-ec28-426b-86c0-1b539cb9e705" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/10.react.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/8.react.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/9.react.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/React基础.md" afterPath="$PROJECT_DIR$/React基础.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/10.react.js" afterPath="$PROJECT_DIR$/js/10.react.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,8 +22,8 @@
           <file leaf-file-name="es6.md" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/es6.md">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="78" column="17" lean-forward="true" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+                <state relative-caret-position="273">
+                  <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -150,8 +146,8 @@
           <file leaf-file-name="10.react.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/10.react.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -192,6 +188,7 @@
         <option value="$PROJECT_DIR$/js/9.react.js" />
         <option value="$PROJECT_DIR$/React基础.md" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/10.react.js" />
       </list>
     </option>
   </component>
@@ -254,6 +251,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -285,12 +283,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1497839726169</updated>
-      <workItem from="1497839727694" duration="13336000" />
+      <workItem from="1497839727694" duration="13428000" />
     </task>
+    <task id="LOCAL-00001" summary="react3">
+      <created>1497855758238</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1497855758238</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13336000" />
+    <option name="totallyTimeSpent" value="13428000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -319,6 +325,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="react3" />
+    <option name="LAST_COMMIT_MESSAGE" value="react3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -413,14 +423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/es6.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="78" column="17" lean-forward="true" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/React基础.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="800">
@@ -437,10 +439,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/es6.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/10.react.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
