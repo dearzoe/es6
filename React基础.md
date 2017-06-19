@@ -187,9 +187,33 @@ var Person = React.createClass({
     }
 });
 ReactDOM.render(
-    <Person name="林志玲" />,
+    <Person name="张三" />,
     document.getElementById('app')
 );
+```
+====
+## 6.4 表单元素双向数据绑定
+### 注意: 如果给表单元素设置了**value**属性，则必须指定**onChange**事件处理函数，否则此字段会变成只读状态
+```
+var Input = React.createClass({
+    getInitialState: function() {//获取初始状态
+        return {value: '大麦电商'};
+    },
+    handleChange: function(event) { //处理改变事件
+        this.setState({value: event.target.value});
+    },
+    render: function () {
+        var value = this.state.value;
+        return (
+            <div>
+                <input style={{color:'red'}} type="text"
+                value={value} onChange={this.handleChange} />
+                <p style={{color:'blue'}}>{value}</p>
+            </div>
+        );
+    }
+});
+ReactDOM.render(<Input/>, document.getElementById('app'));
 ```
 [/magic]
 [slide]

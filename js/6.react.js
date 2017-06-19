@@ -1,22 +1,24 @@
 var Person = React.createClass({
+	getInitialState: function() {
+		return {happy: true};
+	},
+	getDefaultProps:function(){
+		return {name:'无名氏'};
+	},
+	handleClick: function(event) {
+		this.setState({happy: !this.state.happy});
+	},
 	render: function() {
+		var heart = this.state.happy ? '开心' : '不开心';
 		return (
-			<ol>
-			{
-				React.Children.map(this.props.children,
-				function (child) {
-					return <li>{child}</li>;
-				})
-	}
-	</ol>
+			<p >
+			{this.props.name} {heart} <br/>
+		<button onClick={this.handleClick}>变心</button>
+		</p>
 	);
 	}
 });
 ReactDOM.render(
-<Person>
-<span>大毛</span>
-<span>二毛</span>
-<span>三毛</span>
-</Person>,
+<Person name="张三" />,
 	document.getElementById('app')
 );
