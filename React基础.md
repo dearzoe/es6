@@ -216,4 +216,137 @@ var Input = React.createClass({
 ReactDOM.render(<Input/>, document.getElementById('app'));
 ```
 [/magic]
+
 [slide]
+
+# 7. 复合组件 {:&.flexbox.vleft}
+**多个简单的组件嵌套，可构成一个复杂的复合组件，从而完成复杂的交互逻辑**
+```
+var Panel = React.createClass({
+    render: function () {
+        return (
+            <div className="panel panel-default">
+                <PanelHead head={this.props.head}/>
+                <PanelBody body={this.props.body}/>
+            </div>
+        );
+    }
+});
+var PanelHead = React.createClass({
+    render: function () {
+        return (
+            <div className="panel-heading">
+                {this.props.head}
+            </div>
+        );
+    }
+});
+var PanelBody = React.createClass({
+    render: function () {
+        return (
+            <div className="panel-body">
+                {this.props.body}
+            </div>
+        );
+    }
+});
+ReactDOM.render(
+    <Panel
+        head="头部"
+        body="正文"
+    />,
+    document.getElementById('app')
+);
+```
+
+[slide]
+[magic]
+# 8. 组件的生命周期
+React中可以指定在组件的生命周期的不同阶段执行的函数
+**渲染前**
+- **getDefaultProps** 在组件类创建的时候调用一次,则此处返回的对象中的相应属性将会合并到**this.props**
+- **getInitialState** 在组件挂载之前调用一次。返回值将会作为**this.state**的初始值。
+- **componentWillMount** 在首次渲染之前触发
+渲染
+- **render** 当调用的时候，会检测**this.props**和**this.state**，返回一个组件
+渲染后
+- **componentDidMount** 在初始化渲染执行之后立刻调用一次
+- **shouldComponentUpdate** 在接收到新的**props**或者**state**，将要渲染之前调用,返回**false**则不更新组件
+- **componentWillUpdate** 做一些更新之前的准备工作
+- **componentDidUpdate** 更新之后触发
+- **componentWillReceiveProps** 在组件接收到新的**props**的时候调用
+移除
+- **componentWillUnmount** 在组件从DOM中移除的时候立刻被调用
+- **componentDidUnmount** 组件移除之后调用
+====
+```
+var MessageBox = React.createClass({
+    getInitialState: function () {
+        console.log('MessageBox.getInitialState');
+        return {
+            count: 0,
+        }
+    },
+    getDefaultProps: function () {
+        console.log('MessageBox.getDefaultProps');
+    },
+    componentWillMount: function () {
+        console.log('MessageBox.componentWillMount');
+    },
+    componentDidMount: function () {
+        console.log('MessageBox.componentDidMount');
+    },
+    componentWillUnmount: function () {
+        console.log('MessageBox.componentWillUnmount');
+    },
+    shouldComponentUpdate: function (nextProp, nextState) {
+        console.log('MessageBox.shouldComponentUpdate');
+        if (nextState.count > 10) return false;
+        return true;
+    },
+    componentWillUpdate: function (nextProp, nextState) {
+        console.log('MessageBox.componentWillUpdate');
+    },
+    componentDidUpdate: function () {
+        console.log('MessageBox.componentDidUpdate');
+    },
+    killMySelf: function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+    },
+    render: function () {
+        return (
+            <div>
+                <h1> 计数： {this.state.count}</h1>
+            </div>
+        )
+    }
+});
+ReactDOM.render(<MessageBox/>, document.getElementById('app'));
+```
+[/magic]
+
+[slide]
+
+# 9. DOM操作
+给组件加上**ref="xxx"**后，可在父组件中通过**this.refs.xxx**获取该DOM元素
+```
+var Focus = React.createClass({
+    handleClick: function() {
+        this.refs.msg.focus();
+    },
+    render: function() {
+        return (
+            <div>
+                <input type="text" ref="msg" />
+                <input type="button" value="获得焦点"
+                onClick={this.handleClick} />
+            </div>
+        );
+    }
+});
+
+ReactDOM.render(
+    <Focus />,
+    document.getElementById('app')
+);
+```
