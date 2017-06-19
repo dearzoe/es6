@@ -394,3 +394,47 @@ var Suggestion = React.createClass({
 
 ReactDOM.render(<Suggestion></Suggestion>, document.getElementById('app'));
 ```
+
+[slide]
+
+# 11. mixin
+公用抽取出来,让不同的组件共用同一部分逻辑，实现代码重用
+```
+var counterMix = {
+    getInitialState:function(){
+        return {count:0};
+    },
+    componentWillUpdate:function(){
+        console.log('componentWillUpdate');
+    },
+    handleClick:function(){
+        this.setState({count:this.state.count+1});
+    }
+}
+var Counter1 = React.createClass({
+   mixins: [counterMix],
+   render:function(){
+       return (
+           <div>
+               {this.state.count}
+               <button onClick={this.handleClick}>增加</button>
+           </div>
+       )
+   }
+});
+var Counter2 = React.createClass({
+    mixins: [counterMix],
+    render:function(){
+        return (
+            <div>
+                {this.state.count}
+                <button onClick={this.handleClick}>增加</button>
+            </div>
+        )
+    }
+});
+ReactDOM.render(<div>
+  <Counter1/>
+  <Counter2/>
+</div>,document.getElementById('app'));
+```
