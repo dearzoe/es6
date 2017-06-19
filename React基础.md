@@ -1,14 +1,14 @@
 title: React基础
 speaker: 胡文哲
 url: https://github.com/ksky521/nodePPT
-transition: cards
+transition: move
 files: /js/demo.js,/css/demo.css
 theme: color
 highlightStyle: monokai_sublime
 usemathjax: yes
 date:2017-6-19
 
-[slide style="background-image:url('/img/bg1.png')"]
+[slide style="background-image:url('http://www.pptbz.com/d/file/p/201701/3065f7c2093a6204ac5f15d04d97c116.jpg')"]
 
 # React基础
 ## 演讲者：胡文哲
@@ -40,7 +40,7 @@ $ bower install react babel --save
 
 [slide]
 
-# [4. ReactDOM.render](https://dearzoe.github.io/es6/)
+# [4. ReactDOM.render](http://192.168.12.106:9999/index1.html)
 ```
 <div id="app"></div>
 <script type="text/babel" src="js/1.react.js"/>
@@ -55,7 +55,7 @@ ReactDOM.render(
 
 [slide]
 
-# [5. JSX 语法](https://dearzoe.github.io/es6/)
+# [5. JSX 语法](http://192.168.12.106:9999/index2.html)
 **是一种JS和HTML混合的语法,将组件的结构、数据甚至样式都聚合在一起定义组件,会编译成普通的Javascript。**
 -遇到HTML标签(以 < 开头)，就用HTML规则解析
 -遇到代码块(以 { 开头)，就用JavaScript规则解析
@@ -78,7 +78,7 @@ ReactDOM.render(
 
 [slide]
 
-# [6. 定义组件](https://dearzoe.github.io/es6/)
+# [6. 定义组件](http://192.168.12.106:9999/index3.html)
 [magic]
 ====
 **React允许将代码封装成组件，然后像插入普通HTML标签一样，在网页中插入这个组件**
@@ -96,7 +96,7 @@ ReactDOM.render(
 );
 ```
 ====
-## [6.1 组件的属性](https://dearzoe.github.io/es6/)
+## [6.1 组件的属性](http://192.168.12.106:9999/index4.html)
 - 属性一般用作组件的数据源，一般由父组件传入,比如你的名字一般是由你父母取的
 - 属性可以通过**this.props**中取出
 - **propTypes**可以用来定义传入组件属性的名称和类型
@@ -132,7 +132,7 @@ ReactDOM.render(
 );
 ```
 ====
-## [6.2 this.props.children](https://dearzoe.github.io/es6/)
+## [6.2 this.props.children](http://192.168.12.106:9999/index5.html)
 **this.props**对象的属性与组件实例的属性一一对应,但**this.props.children**属性表示组件的所有子节点 **React.Children.map**是一个工具方法，用于实现对数组元素的映射
 ```
 var Person = React.createClass({
@@ -160,7 +160,7 @@ ReactDOM.render(
 );
 ```
 ====
-## [6.3 state状态](https://dearzoe.github.io/es6/)
+## [6.3 state状态](http://192.168.12.106:9999/index6.html)
 - 组件的状态就像人的心情，会经常变化，而且只能由自己来改变
 - 组件一开始有一个初始状态,然后用户互动,导致状态变化，从而触发界面重新渲染
 - **getInitialState**用来定义初始状态
@@ -192,7 +192,7 @@ ReactDOM.render(
 );
 ```
 ====
-## [6.4 表单元素双向数据绑定](https://dearzoe.github.io/es6/)
+## [6.4 表单元素双向数据绑定](http://192.168.12.106:9999/index7.html)
 ### 注意: 如果给表单元素设置了**value**属性，则必须指定**onChange**事件处理函数，否则此字段会变成只读状态
 ```
 var Input = React.createClass({
@@ -219,7 +219,7 @@ ReactDOM.render(<Input/>, document.getElementById('app'));
 
 [slide]
 
-# [7. 复合组件](https://dearzoe.github.io/es6/)
+# [7. 复合组件](http://192.168.12.106:9999/index8.html)
 **多个简单的组件嵌套，可构成一个复杂的复合组件，从而完成复杂的交互逻辑**
 ```
 var Panel = React.createClass({
@@ -260,7 +260,8 @@ ReactDOM.render(
 ```
 
 [slide]
-# [8. 组件的生命周期](https://dearzoe.github.io/es6/)
+
+# [8. 组件的生命周期](http://192.168.12.106:9999/index9.html)
 [magic]
 React中可以指定在组件的生命周期的不同阶段执行的函数
 **渲染前**
@@ -327,7 +328,7 @@ ReactDOM.render(<MessageBox/>, document.getElementById('app'));
 
 [slide]
 
-# [9. DOM操作](https://dearzoe.github.io/es6/)
+# [9. DOM操作](http://192.168.12.106:9999/index10.html)
 给组件加上**ref="xxx"**后，可在父组件中通过**this.refs.xxx**获取该DOM元素
 ```
 var Focus = React.createClass({
@@ -353,7 +354,7 @@ ReactDOM.render(
 
 [slide]
 
-# [10.通过Ajax获取数据](https://dearzoe.github.io/es6/)
+# [10.通过Ajax获取数据](http://192.168.12.106:9999/index11.html)
 ```
 var Suggestion = React.createClass({
     getInitialState:function(){
@@ -396,7 +397,7 @@ ReactDOM.render(<Suggestion></Suggestion>, document.getElementById('app'));
 
 [slide]
 
-# [11. mixin](https://dearzoe.github.io/es6/)
+# [11. mixin](http://192.168.12.106:9999/index12.html)
 公用抽取出来,让不同的组件共用同一部分逻辑，实现代码重用
 ```
 var counterMix = {
@@ -439,7 +440,7 @@ ReactDOM.render(<div>
 ```
 [slide]
 
-# [12. 插件实现双向数据绑定](https://dearzoe.github.io/es6/)
+# [12. 插件实现双向数据绑定](http://192.168.12.106:9999/index13.html)
 ```
 <script src="lib/react/react-with-addons.js"></script>
 ```
@@ -465,7 +466,7 @@ ReactDOM.render(<Input/>, document.getElementById('app'));
 
 [slide]
 
-# [留言板](https://dearzoe.github.io/es6/)
+# [留言板](http://192.168.12.106:9999/index14.html)
 ```
 var Board = React.createClass({
 	getInitialState: function () {
