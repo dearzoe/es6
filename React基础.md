@@ -40,7 +40,7 @@ $ bower install react babel --save
 
 [slide]
 
-# 4. ReactDOM.render {:&.flexbox.vleft}
+# [4. ReactDOM.render](https://dearzoe.github.io/es6/)
 ```
 <div id="app"></div>
 <script type="text/babel" src="js/1.react.js"/>
@@ -55,7 +55,7 @@ ReactDOM.render(
 
 [slide]
 
-# 5. JSX 语法 {:&.flexbox.vleft}
+# [5. JSX 语法](https://dearzoe.github.io/es6/)
 **是一种JS和HTML混合的语法,将组件的结构、数据甚至样式都聚合在一起定义组件,会编译成普通的Javascript。**
 -遇到HTML标签(以 < 开头)，就用HTML规则解析
 -遇到代码块(以 { 开头)，就用JavaScript规则解析
@@ -78,7 +78,7 @@ ReactDOM.render(
 
 [slide]
 
-# 6. 定义组件
+# [6. 定义组件](https://dearzoe.github.io/es6/)
 [magic]
 ====
 **React允许将代码封装成组件，然后像插入普通HTML标签一样，在网页中插入这个组件**
@@ -96,7 +96,7 @@ ReactDOM.render(
 );
 ```
 ====
-## 6.1 组件的属性
+## [6.1 组件的属性](https://dearzoe.github.io/es6/)
 - 属性一般用作组件的数据源，一般由父组件传入,比如你的名字一般是由你父母取的
 - 属性可以通过**this.props**中取出
 - **propTypes**可以用来定义传入组件属性的名称和类型
@@ -132,7 +132,7 @@ ReactDOM.render(
 );
 ```
 ====
-## 6.2 this.props.children
+## [6.2 this.props.children](https://dearzoe.github.io/es6/)
 **this.props**对象的属性与组件实例的属性一一对应,但**this.props.children**属性表示组件的所有子节点 **React.Children.map**是一个工具方法，用于实现对数组元素的映射
 ```
 var Person = React.createClass({
@@ -160,7 +160,7 @@ ReactDOM.render(
 );
 ```
 ====
-## 6.3 state状态
+## [6.3 state状态](https://dearzoe.github.io/es6/)
 - 组件的状态就像人的心情，会经常变化，而且只能由自己来改变
 - 组件一开始有一个初始状态,然后用户互动,导致状态变化，从而触发界面重新渲染
 - **getInitialState**用来定义初始状态
@@ -192,7 +192,7 @@ ReactDOM.render(
 );
 ```
 ====
-## 6.4 表单元素双向数据绑定
+## [6.4 表单元素双向数据绑定](https://dearzoe.github.io/es6/)
 ### 注意: 如果给表单元素设置了**value**属性，则必须指定**onChange**事件处理函数，否则此字段会变成只读状态
 ```
 var Input = React.createClass({
@@ -219,7 +219,7 @@ ReactDOM.render(<Input/>, document.getElementById('app'));
 
 [slide]
 
-# 7. 复合组件 {:&.flexbox.vleft}
+# [7. 复合组件](https://dearzoe.github.io/es6/)
 **多个简单的组件嵌套，可构成一个复杂的复合组件，从而完成复杂的交互逻辑**
 ```
 var Panel = React.createClass({
@@ -260,8 +260,8 @@ ReactDOM.render(
 ```
 
 [slide]
+# [8. 组件的生命周期](https://dearzoe.github.io/es6/)
 [magic]
-# 8. 组件的生命周期
 React中可以指定在组件的生命周期的不同阶段执行的函数
 **渲染前**
 - **getDefaultProps** 在组件类创建的时候调用一次,则此处返回的对象中的相应属性将会合并到**this.props**
@@ -327,7 +327,7 @@ ReactDOM.render(<MessageBox/>, document.getElementById('app'));
 
 [slide]
 
-# 9. DOM操作
+# [9. DOM操作](https://dearzoe.github.io/es6/)
 给组件加上**ref="xxx"**后，可在父组件中通过**this.refs.xxx**获取该DOM元素
 ```
 var Focus = React.createClass({
@@ -353,8 +353,7 @@ ReactDOM.render(
 
 [slide]
 
-# 10.通过Ajax获取数据
-[**运行**](https://dearzoe.github.io/es6/)
+# [10.通过Ajax获取数据](https://dearzoe.github.io/es6/)
 ```
 var Suggestion = React.createClass({
     getInitialState:function(){
@@ -397,7 +396,7 @@ ReactDOM.render(<Suggestion></Suggestion>, document.getElementById('app'));
 
 [slide]
 
-# 11. mixin
+# [11. mixin](https://dearzoe.github.io/es6/)
 公用抽取出来,让不同的组件共用同一部分逻辑，实现代码重用
 ```
 var counterMix = {
@@ -440,7 +439,7 @@ ReactDOM.render(<div>
 ```
 [slide]
 
-# 12. 插件实现双向数据绑定
+# [12. 插件实现双向数据绑定](https://dearzoe.github.io/es6/)
 ```
 <script src="lib/react/react-with-addons.js"></script>
 ```
@@ -448,7 +447,7 @@ ReactDOM.render(<div>
 var Input = React.createClass({
     mixins:[React.addons.LinkedStateMixin],
     getInitialState: function() {//获取初始状态
-        return {msg: '珠峰培训'};
+        return {msg: '大麦电商!'};
     },
     render: function () {
         var msg = this.state.msg;
@@ -462,4 +461,57 @@ var Input = React.createClass({
 });
 
 ReactDOM.render(<Input/>, document.getElementById('app'));
+```
+
+[slide]
+
+# [留言板](https://dearzoe.github.io/es6/)
+```
+var Board = React.createClass({
+	getInitialState: function () {
+		return {
+			msg: '请输入',
+			messages: this.props.messages
+		};
+	},
+	render: function () {
+		return (
+			<div>
+				<h1>{this.props.title}</h1>
+				<input type="text" defaultValue={this.state.msg}
+					   ref="txtMsg" onClick={this.clear}/>
+				<input type="button" value='发言' onClick={this.leaveMsg}/>
+				<ul>
+					{
+						this.state.messages.map(function (item, index) {
+							return <li key={index}>{item}</li>
+						})
+					}
+				</ul>
+			</div>
+		)
+	},
+	clear: function () {
+		this.refs.txtMsg.value = '';
+	},
+	leaveMsg: function (event) {
+		this.state.messages.push(this.refs.txtMsg.value);
+		//每次状态都是一个新的state对象
+		localStorage.setItem('messages', JSON.stringify(this.state.messages));
+		this.setState({
+			messages: this.state.messages
+		}, function () {
+			this.refs.txtMsg.value = '';
+		});
+	}
+})
+var data = {
+	title: '大麦留言版',
+	messages: JSON.parse(localStorage.getItem('messages')) || []
+}
+
+ReactDOM.render(
+	<Board {...data}/>,
+	document.getElementById('app')
+);
 ```

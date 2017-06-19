@@ -1,37 +1,17 @@
-var counterMix = {
-	getInitialState:function(){
-		return {count:0};
+var Input = React.createClass({
+	mixins:[React.addons.LinkedStateMixin],
+	getInitialState: function() {//获取初始状态
+		return {msg: '大麦电商!'};
 	},
-	componentWillUpdate:function(){
-		console.log('componentWillUpdate');
-	},
-	handleClick:function(){
-		this.setState({count:this.state.count+1});
-	}
-}
-var Counter1 = React.createClass({
-	mixins: [counterMix],
-	render:function(){
+	render: function () {
+		var msg = this.state.msg;
 		return (
 			<div>
-			{this.state.count}
-	<button onClick={this.handleClick}>增加</button>
+			<input type="text" valueLink={this.linkState('msg')} />
+	<p>{msg}</p>
 		</div>
-	)
+	);
 	}
 });
-var Counter2 = React.createClass({
-	mixins: [counterMix],
-	render:function(){
-		return (
-			<div>
-			{this.state.count}
-	<button onClick={this.handleClick}>增加</button>
-		</div>
-	)
-	}
-});
-ReactDOM.render(<div>
-<Counter1/>
-<Counter2/>
-</div>,document.getElementById('app'));
+
+ReactDOM.render(<Input/>, document.getElementById('app'));
