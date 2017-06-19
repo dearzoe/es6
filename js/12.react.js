@@ -1,37 +1,37 @@
-var Suggestion = React.createClass({
+var counterMix = {
 	getInitialState:function(){
-		return {}
+		return {count:0};
 	},
-	handleChange: function () {
-		var value = this.refs.input.value;
-		$.ajax({
-			url: 'http://www.baidu.com/su',
-			type: 'get',
-			jsonp: 'cb',
-			dataType: 'jsonp',
-			data: {wd: value},
-			processData: true,
-			context:this,
-			success: function (result) {
-				var data = result.s;
-				data = data.map(function(item,index){
-					return <li key={index}>{item}</li>
-				});
-				this.setState({content:data});
-			}
-		})
+	componentWillUpdate:function(){
+		console.log('componentWillUpdate');
 	},
-	render: function () {
+	handleClick:function(){
+		this.setState({count:this.state.count+1});
+	}
+}
+var Counter1 = React.createClass({
+	mixins: [counterMix],
+	render:function(){
 		return (
 			<div>
-			<input type="text" ref="input"
-		onChange={this.handleChange}/>
-	<ul>
-		{this.state.content}
-	</ul>
+			{this.state.count}
+	<button onClick={this.handleClick}>增加</button>
 		</div>
 	)
 	}
 });
-
-ReactDOM.render(<Suggestion></Suggestion>, document.getElementById('app'));
+var Counter2 = React.createClass({
+	mixins: [counterMix],
+	render:function(){
+		return (
+			<div>
+			{this.state.count}
+	<button onClick={this.handleClick}>增加</button>
+		</div>
+	)
+	}
+});
+ReactDOM.render(<div>
+<Counter1/>
+<Counter2/>
+</div>,document.getElementById('app'));
