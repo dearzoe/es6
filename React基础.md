@@ -6,7 +6,7 @@ files: /js/demo.js,/css/demo.css
 theme: color
 highlightStyle: monokai_sublime
 usemathjax: yes
-date:2017-6-19
+date: 2017-6-19
 
 [slide style="background-image:url('http://www.pptbz.com/d/file/p/201701/3065f7c2093a6204ac5f15d04d97c116.jpg')"]
 
