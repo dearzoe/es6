@@ -1,7 +1,7 @@
 title: null
 speaker: 胡文哲
 url: https://github.com/ksky521/nodePPT
-transition: ""
+transition: move
 files: /js/demo.js,/css/demo.css
 
 [slide data-transition="horizontal3d"]
