@@ -1,0 +1,620 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 2017-6-19
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>React基础 - By 胡文哲</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.color.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide fill" style="background-image:url('http://www.pptbz.com/d/file/p/201701/3065f7c2093a6204ac5f15d04d97c116.jpg')"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>React基础</h1>
+<h2>演讲者：胡文哲</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>1. 什么是react</h1>
+<h2>React 是一个用于构建用户界面的JavaScript库;</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>2. 安装react</h1>
+<pre><code>$ bower install react babel --save
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>3. 直接在浏览器中使用React</h1>
+<pre><code>//react.js 是 React 的核心库
+&lt;script src=&quot;./bower_components/react/react.js&quot;&gt;&lt;/script&gt;
+//react-dom.js 是提供与DOM相关的功能,会在window下增加ReactDOM属性
+&lt;script src=&quot;./bower_components/react/react-dom.js&quot;&gt;&lt;/script&gt;
+//browser.js 的作用是将JSX语法转为JavaScript语法
+&lt;script src=&quot;./bower_components/babel/browser.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><strong>script中的type属性为text/babel,因为React独有的JSX语法,跟JavaScript不兼容</strong></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index1.html" target="_blank">4. ReactDOM.render</a></h1>
+<pre><code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/babel&quot; src=&quot;js/1.react.js&quot;/&gt;
+</code></pre><pre><code>ReactDOM.render(
+&lt;h1&gt;广州大麦电商&lt;/h1&gt;,
+    document.getElementById(&#39;app&#39;);
+);
+</code></pre><p><strong>上面代码将一个h1标题，插入app元素内部</strong></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index2.html" target="_blank">5. JSX 语法</a></h1>
+<p><strong>是一种JS和HTML混合的语法,将组件的结构、数据甚至样式都聚合在一起定义组件,会编译成普通的Javascript。</strong>
+-遇到HTML标签(以 &lt; 开头)，就用HTML规则解析
+-遇到代码块(以 { 开头)，就用JavaScript规则解析
+-使用样式时可以让style等于一个样式对象
+-使用样式类时只能使用className=类名,因为class是Javascript关键字</p>
+<pre><code>var persons = [&#39;刘德华&#39;, &#39;范冰冰&#39;, &#39;郭跃&#39;];
+var style = {color:&#39;red&#39;,&#39;font-size&#39;:&#39;20px&#39;};
+ReactDOM.render(
+&lt;div&gt;
+{
+    persons.map(function (person) {
+    return &lt;div style={style}&gt;Hello, {person}!&lt;/div&gt;
+})
+}
+&lt;/div&gt;,
+    document.getElementById(&#39;app&#39;)
+);
+</code></pre>
+</article></section></slide>
+<slide class="slide"   data-on-build="Slide.magic" data-on-enter="Slide.magic.init"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index3.html" target="_blank">6. 定义组件</a></h1>
+<div class="magic"><div class="magicItem current pagedown" data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<p><strong>React允许将代码封装成组件，然后像插入普通HTML标签一样，在网页中插入这个组件</strong></p>
+<ul>
+<li>组件类的第一个字母必须大写</li>
+<li>组件类能且只能包含一个顶层标签<pre><code>var Message = React.createClass({
+  render: function() {
+      return &lt;h1&gt;HelloWorld!&lt;/h1&gt;;
+  }
+});
+ReactDOM.render(
+&lt;Message/&gt;,
+  document.getElementById(&#39;app&#39;)
+);
+</code></pre></li>
+</ul>
+
+</article>
+</div>
+</article></div>
+<div class="magicItem next pagedown" data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<h2><a href="http://192.168.12.106:9999/index4.html" target="_blank">6.1 组件的属性</a></h2>
+<ul>
+<li>属性一般用作组件的数据源，一般由父组件传入,比如你的名字一般是由你父母取的</li>
+<li>属性可以通过<strong>this.props</strong>中取出</li>
+<li><strong>propTypes</strong>可以用来定义传入组件属性的名称和类型</li>
+<li><strong>getDefaultProps</strong>函数可以用来定会引起组件的默认属性<pre><code>var Person = React.createClass({
+  //类似于约定了一个接口文档,用于这是验证传递给组件的属性.
+  propTypes: {
+      //定义msg的属性类型为字符串，必须传入
+      name: React.PropTypes.string.isRequired,
+      gender: React.PropTypes.string.isRequired,
+      age:React.PropTypes.number.isRequired
+  },
+  getDefaultProps:function(){
+      return {name:&#39;无名氏&#39;}
+  },
+  render: function() {
+      //属性可以通过属性对象this.props中取出
+      return (&lt;div&gt;
+                   {this.props.name}
+                   {this.props.gender}
+                   {this.props.age}
+              &lt;/div&gt;);
+  }
+});
+var props = {
+  gender:&#39;男&#39;,
+  age:18
+}
+ReactDOM.render(
+  &lt;Person {...props} /&gt;,//属性可以在使用组件时传入
+  document.getElementById(&#39;app&#39;)
+);
+</code></pre></li>
+</ul>
+
+</article>
+</div>
+</article></div>
+<div class="magicItem far-next pagedown" data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<h2><a href="http://192.168.12.106:9999/index5.html" target="_blank">6.2 this.props.children</a></h2>
+<p><strong>this.props</strong>对象的属性与组件实例的属性一一对应,但<strong>this.props.children</strong>属性表示组件的所有子节点 <strong>React.Children.map</strong>是一个工具方法，用于实现对数组元素的映射</p>
+<pre><code>var Person = React.createClass({
+    render: function() {
+      return (
+            &lt;ol&gt;
+                {
+                    React.Children.map(this.props.children,
+                      function (child) {
+                        return &lt;li&gt;{child}&lt;/li&gt;;
+                    })
+                }
+            &lt;/ol&gt;
+      );
+    }
+});
+
+ReactDOM.render(
+    &lt;Person&gt;
+        &lt;span&gt;大毛&lt;/span&gt;
+        &lt;span&gt;二毛&lt;/span&gt;
+        &lt;span&gt;三毛&lt;/span&gt;
+    &lt;/Person&gt;,
+    document.getElementById(&#39;app&#39;)
+);
+</code></pre>
+</article>
+</div>
+</article></div>
+<div class="magicItem " data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<h2><a href="http://192.168.12.106:9999/index6.html" target="_blank">6.3 state状态</a></h2>
+<ul>
+<li>组件的状态就像人的心情，会经常变化，而且只能由自己来改变</li>
+<li>组件一开始有一个初始状态,然后用户互动,导致状态变化，从而触发界面重新渲染</li>
+<li><strong>getInitialState</strong>用来定义初始状态</li>
+<li>可以给按钮绑定事件，当事件发生的时候调用对应的方法改变组件的状态<pre><code>var Person = React.createClass({
+  getInitialState: function() {
+      return {happy: true};
+  },
+  getDefaultProps:function(){
+      return {name:&#39;无名氏&#39;};
+  },
+  handleClick: function(event) {
+      this.setState({happy: !this.state.happy});
+  },
+  render: function() {
+      var heart = this.state.happy ? &#39;开心&#39; : &#39;不开心&#39;;
+      return (
+          &lt;p &gt;
+               {this.props.name} {heart} &lt;br/&gt;
+               &lt;button onClick={this.handleClick}&gt;变心&lt;/button&gt;
+          &lt;/p&gt;
+      );
+  }
+});
+ReactDOM.render(
+  &lt;Person name=&quot;张三&quot; /&gt;,
+  document.getElementById(&#39;app&#39;)
+);
+</code></pre></li>
+</ul>
+
+</article>
+</div>
+</article></div>
+<div class="magicItem " data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<h2><a href="http://192.168.12.106:9999/index7.html" target="_blank">6.4 表单元素双向数据绑定</a></h2>
+<h3>注意: 如果给表单元素设置了<strong>value</strong>属性，则必须指定<strong>onChange</strong>事件处理函数，否则此字段会变成只读状态</h3>
+<pre><code>var Input = React.createClass({
+    getInitialState: function() {//获取初始状态
+        return {value: &#39;大麦电商&#39;};
+    },
+    handleChange: function(event) { //处理改变事件
+        this.setState({value: event.target.value});
+    },
+    render: function () {
+        var value = this.state.value;
+        return (
+            &lt;div&gt;
+                &lt;input style={{color:&#39;red&#39;}} type=&quot;text&quot;
+                value={value} onChange={this.handleChange} /&gt;
+                &lt;p style={{color:&#39;blue&#39;}}&gt;{value}&lt;/p&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+ReactDOM.render(&lt;Input/&gt;, document.getElementById(&#39;app&#39;));
+</code></pre>
+</article>
+</div>
+</article></div></div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index8.html" target="_blank">7. 复合组件</a></h1>
+<p><strong>多个简单的组件嵌套，可构成一个复杂的复合组件，从而完成复杂的交互逻辑</strong></p>
+<pre><code>var Panel = React.createClass({
+    render: function () {
+        return (
+            &lt;div className=&quot;panel panel-default&quot;&gt;
+                &lt;PanelHead head={this.props.head}/&gt;
+                &lt;PanelBody body={this.props.body}/&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+var PanelHead = React.createClass({
+    render: function () {
+        return (
+            &lt;div className=&quot;panel-heading&quot;&gt;
+                {this.props.head}
+            &lt;/div&gt;
+        );
+    }
+});
+var PanelBody = React.createClass({
+    render: function () {
+        return (
+            &lt;div className=&quot;panel-body&quot;&gt;
+                {this.props.body}
+            &lt;/div&gt;
+        );
+    }
+});
+ReactDOM.render(
+    &lt;Panel
+        head=&quot;头部&quot;
+        body=&quot;正文&quot;
+    /&gt;,
+    document.getElementById(&#39;app&#39;)
+);
+</code></pre>
+</article></section></slide>
+<slide class="slide"   data-on-build="Slide.magic" data-on-enter="Slide.magic.init"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index9.html" target="_blank">8. 组件的生命周期</a></h1>
+<div class="magic"><div class="magicItem current pagedown" data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<p>React中可以指定在组件的生命周期的不同阶段执行的函数
+<strong>渲染前</strong></p>
+<ul>
+<li><strong>getDefaultProps</strong> 在组件类创建的时候调用一次,则此处返回的对象中的相应属性将会合并到<strong>this.props</strong></li>
+<li><strong>getInitialState</strong> 在组件挂载之前调用一次。返回值将会作为<strong>this.state</strong>的初始值。</li>
+<li><strong>componentWillMount</strong> 在首次渲染之前触发
+渲染</li>
+<li><strong>render</strong> 当调用的时候，会检测<strong>this.props</strong>和<strong>this.state</strong>，返回一个组件
+渲染后</li>
+<li><strong>componentDidMount</strong> 在初始化渲染执行之后立刻调用一次</li>
+<li><strong>shouldComponentUpdate</strong> 在接收到新的<strong>props</strong>或者<strong>state</strong>，将要渲染之前调用,返回<strong>false</strong>则不更新组件</li>
+<li><strong>componentWillUpdate</strong> 做一些更新之前的准备工作</li>
+<li><strong>componentDidUpdate</strong> 更新之后触发</li>
+<li><strong>componentWillReceiveProps</strong> 在组件接收到新的<strong>props</strong>的时候调用
+移除</li>
+<li><strong>componentWillUnmount</strong> 在组件从DOM中移除的时候立刻被调用</li>
+<li><strong>componentDidUnmount</strong> 组件移除之后调用</li>
+</ul>
+
+</article>
+</div>
+</article></div>
+<div class="magicItem next pagedown" data-transition="fade"><article>
+<div class="magic-wrapper">
+<article>
+<pre><code>var MessageBox = React.createClass({
+    getInitialState: function () {
+        console.log(&#39;MessageBox.getInitialState&#39;);
+        return {
+            count: 0,
+        }
+    },
+    getDefaultProps: function () {
+        console.log(&#39;MessageBox.getDefaultProps&#39;);
+    },
+    componentWillMount: function () {
+        console.log(&#39;MessageBox.componentWillMount&#39;);
+    },
+    componentDidMount: function () {
+        console.log(&#39;MessageBox.componentDidMount&#39;);
+    },
+    componentWillUnmount: function () {
+        console.log(&#39;MessageBox.componentWillUnmount&#39;);
+    },
+    shouldComponentUpdate: function (nextProp, nextState) {
+        console.log(&#39;MessageBox.shouldComponentUpdate&#39;);
+        if (nextState.count &gt; 10) return false;
+        return true;
+    },
+    componentWillUpdate: function (nextProp, nextState) {
+        console.log(&#39;MessageBox.componentWillUpdate&#39;);
+    },
+    componentDidUpdate: function () {
+        console.log(&#39;MessageBox.componentDidUpdate&#39;);
+    },
+    killMySelf: function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById(&#39;app&#39;));
+    },
+    render: function () {
+        return (
+            &lt;div&gt;
+                &lt;h1&gt; 计数： {this.state.count}&lt;/h1&gt;
+            &lt;/div&gt;
+        )
+    }
+});
+ReactDOM.render(&lt;MessageBox/&gt;, document.getElementById(&#39;app&#39;));
+</code></pre>
+</article>
+</div>
+</article></div></div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index10.html" target="_blank">9. DOM操作</a></h1>
+<p>给组件加上<strong>ref=&quot;xxx&quot;</strong>后，可在父组件中通过<strong>this.refs.xxx</strong>获取该DOM元素</p>
+<pre><code>var Focus = React.createClass({
+    handleClick: function() {
+        this.refs.msg.focus();
+    },
+    render: function() {
+        return (
+            &lt;div&gt;
+                &lt;input type=&quot;text&quot; ref=&quot;msg&quot; /&gt;
+                &lt;input type=&quot;button&quot; value=&quot;获得焦点&quot;
+                onClick={this.handleClick} /&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+
+ReactDOM.render(
+    &lt;Focus /&gt;,
+    document.getElementById(&#39;app&#39;)
+);
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index11.html" target="_blank">10.通过Ajax获取数据</a></h1>
+<pre><code>var Suggestion = React.createClass({
+    getInitialState:function(){
+      return {}
+    },
+    handleChange: function () {
+        var value = this.refs.input.value;
+        $.ajax({
+            url: &#39;http://www.baidu.com/su&#39;,
+            type: &#39;get&#39;,
+            jsonp: &#39;cb&#39;,
+            dataType: &#39;jsonp&#39;,
+            data: {wd: value},
+            processData: true,
+            context:this,
+            success: function (result) {
+                var data = result.s;
+                data = data.map(function(item，index){
+                    return &lt;li key={index}&gt;{item}&lt;/li&gt;
+                });
+                this.setState({content:data});
+            }
+        })
+    },
+    render: function () {
+        return (
+            &lt;div&gt;
+                &lt;input type=&quot;text&quot; ref=&quot;input&quot;
+                onChange={this.handleChange}/&gt;
+                &lt;ul&gt;
+                    {this.state.content}
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        )
+    }
+});
+
+ReactDOM.render(&lt;Suggestion&gt;&lt;/Suggestion&gt;, document.getElementById(&#39;app&#39;));
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index12.html" target="_blank">11. mixin</a></h1>
+<p>公用抽取出来,让不同的组件共用同一部分逻辑，实现代码重用</p>
+<pre><code>var counterMix = {
+    getInitialState:function(){
+        return {count:0};
+    },
+    componentWillUpdate:function(){
+        console.log(&#39;componentWillUpdate&#39;);
+    },
+    handleClick:function(){
+        this.setState({count:this.state.count+1});
+    }
+}
+var Counter1 = React.createClass({
+   mixins: [counterMix],
+   render:function(){
+       return (
+           &lt;div&gt;
+               {this.state.count}
+               &lt;button onClick={this.handleClick}&gt;增加&lt;/button&gt;
+           &lt;/div&gt;
+       )
+   }
+});
+var Counter2 = React.createClass({
+    mixins: [counterMix],
+    render:function(){
+        return (
+            &lt;div&gt;
+                {this.state.count}
+                &lt;button onClick={this.handleClick}&gt;增加&lt;/button&gt;
+            &lt;/div&gt;
+        )
+    }
+});
+ReactDOM.render(&lt;div&gt;
+  &lt;Counter1/&gt;
+  &lt;Counter2/&gt;
+&lt;/div&gt;,document.getElementById(&#39;app&#39;));
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index13.html" target="_blank">12. 插件实现双向数据绑定</a></h1>
+<pre><code>&lt;script src=&quot;lib/react/react-with-addons.js&quot;&gt;&lt;/script&gt;
+</code></pre><pre><code>var Input = React.createClass({
+    mixins:[React.addons.LinkedStateMixin],
+    getInitialState: function() {//获取初始状态
+        return {msg: &#39;大麦电商!&#39;};
+    },
+    render: function () {
+        var msg = this.state.msg;
+        return (
+            &lt;div&gt;
+                &lt;input type=&quot;text&quot; valueLink={this.linkState(&#39;msg&#39;)} /&gt;
+                &lt;p&gt;{msg}&lt;/p&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+
+ReactDOM.render(&lt;Input/&gt;, document.getElementById(&#39;app&#39;));
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><a href="http://192.168.12.106:9999/index14.html" target="_blank">留言板</a></h1>
+<pre><code>var Board = React.createClass({
+    getInitialState: function () {
+        return {
+            msg: &#39;请输入&#39;,
+            messages: this.props.messages
+        };
+    },
+    render: function () {
+        return (
+            &lt;div&gt;
+                &lt;h1&gt;{this.props.title}&lt;/h1&gt;
+                &lt;input type=&quot;text&quot; defaultValue={this.state.msg}
+                       ref=&quot;txtMsg&quot; onClick={this.clear}/&gt;
+                &lt;input type=&quot;button&quot; value=&#39;发言&#39; onClick={this.leaveMsg}/&gt;
+                &lt;ul&gt;
+                    {
+                        this.state.messages.map(function (item, index) {
+                            return &lt;li key={index}&gt;{item}&lt;/li&gt;
+                        })
+                    }
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        )
+    },
+    clear: function () {
+        this.refs.txtMsg.value = &#39;&#39;;
+    },
+    leaveMsg: function (event) {
+        this.state.messages.push(this.refs.txtMsg.value);
+        //每次状态都是一个新的state对象
+        localStorage.setItem(&#39;messages&#39;, JSON.stringify(this.state.messages));
+        this.setState({
+            messages: this.state.messages
+        }, function () {
+            this.refs.txtMsg.value = &#39;&#39;;
+        });
+    }
+})
+var data = {
+    title: &#39;大麦留言版&#39;,
+    messages: JSON.parse(localStorage.getItem(&#39;messages&#39;)) || []
+}
+
+ReactDOM.render(
+    &lt;Board {...data}/&gt;,
+    document.getElementById(&#39;app&#39;)
+);
+</code></pre>
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'move',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>

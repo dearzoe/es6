@@ -10,12 +10,12 @@ date: 2017-6-19
 
 [slide style="background-image:url('http://www.pptbz.com/d/file/p/201701/3065f7c2093a6204ac5f15d04d97c116.jpg')"]
 
-# React基础
+# React基础 {:&.flexbox.vcenter}
 ## 演讲者：胡文哲
 
 [slide]
 
-# 1. 什么是react {:&.flexbox.vleft}
+# 1. 什么是react {:&.flexbox.vcenter}
 ## React 是一个用于构建用户界面的JavaScript库;
 
 [slide]

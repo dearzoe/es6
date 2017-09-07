@@ -8,11 +8,11 @@
 <div id="app"></div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-<script src="./bower_components/react/react.js"></script>
-<script src="./bower_components/react/react-dom.js"></script>
+<script src="https://cdn.bootcss.com/react/15.6.1/react.min.js"></script>
+<script src="https://cdn.bootcss.com/react/15.6.1/react-dom.min.js"></script>
 <script src="./bower_components/babel/browser.js"></script>
 <!--<script src="https://cdn.bootcss.com/react/15.6.1/react-with-addons.js"></script>-->
-<!--<script type="text/babel" src="js/1.react.js"></script>-->
+<!-- <script type="text/babel" src="./js/1.react.js"></script> -->
 <!--<script type="text/babel" src="js/2.react.js"></script>-->
 <!--<script type="text/babel" src="js/3.react.js"></script>-->
 <!--<script type="text/babel" src="js/4.react.js"></script>-->
@@ -25,5 +25,54 @@
 <!--<script type="text/babel" src="js/11.react.js"></script>-->
 <!--<script type="text/babel" src="js/12.react.js"></script>-->
 <!--<script type="text/babel" src="js/13.react.js"></script>-->
-<script type="text/babel" src="js/14.react.js"></script>
+<!--<script type="text/babel" src="js/14.react.js"></script>-->
 </html>
+<script type="text/babel">
+var Board = React.createClass({
+	getInitialState: function () {
+		return {
+			msg: '请输入',
+			messages: this.props.messages
+		};
+	},
+	render: function () {
+		return (
+			<div>
+				<h1>{this.props.title}</h1>
+				<input type="text" defaultValue={this.state.msg}
+					   ref="txtMsg" onClick={this.clear}/>
+				<input type="button" value='发言' onClick={this.leaveMsg}/>
+				<ul>
+					{
+						this.state.messages.map(function (item, index) {
+							return <li key={index}>{item}</li>
+						})
+					}
+				</ul>
+			</div>
+		)
+	},
+	clear: function () {
+		this.refs.txtMsg.value = '';
+	},
+	leaveMsg: function (event) {
+		this.state.messages.push(this.refs.txtMsg.value);
+		//每次状态都是一个新的state对象
+		localStorage.setItem('messages', JSON.stringify(this.state.messages));
+		this.setState({
+			messages: this.state.messages
+		}, function () {
+			this.refs.txtMsg.value = '';
+		});
+	}
+})
+var data = {
+	title: '大麦留言版',
+	messages: JSON.parse(localStorage.getItem('messages')) || []
+}
+
+ReactDOM.render(
+	<Board {...data}/>,
+	document.getElementById('app')
+);
+</script>

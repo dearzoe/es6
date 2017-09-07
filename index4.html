@@ -8,14 +8,14 @@
 <div id="app"></div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-<script src="./bower_components/react/react.js"></script>
-<script src="./bower_components/react/react-dom.js"></script>
+<script src="https://cdn.bootcss.com/react/15.6.1/react.min.js"></script>
+<script src="https://cdn.bootcss.com/react/15.6.1/react-dom.min.js"></script>
 <script src="./bower_components/babel/browser.js"></script>
 <!--<script src="https://cdn.bootcss.com/react/15.6.1/react-with-addons.js"></script>-->
-<!--<script type="text/babel" src="js/1.react.js"></script>-->
+<!-- <script type="text/babel" src="./js/1.react.js"></script> -->
 <!--<script type="text/babel" src="js/2.react.js"></script>-->
 <!--<script type="text/babel" src="js/3.react.js"></script>-->
-<script type="text/babel" src="js/4.react.js"></script>
+<!--<script type="text/babel" src="js/4.react.js"></script>-->
 <!--<script type="text/babel" src="js/5.react.js"></script>-->
 <!--<script type="text/babel" src="js/6.react.js"></script>-->
 <!--<script type="text/babel" src="js/7.react.js"></script>-->
@@ -27,3 +27,33 @@
 <!--<script type="text/babel" src="js/13.react.js"></script>-->
 <!--<script type="text/babel" src="js/14.react.js"></script>-->
 </html>
+<script type="text/babel">
+var Person = React.createClass({
+	//类似于约定了一个接口文档,用于这是验证传递给组件的属性，
+	propTypes: {
+		//定义msg的属性类型为字符串，必须传入
+		name: React.PropTypes.string.isRequired,
+		gender: React.PropTypes.string.isRequired,
+		age:React.PropTypes.number.isRequired
+	},
+	getDefaultProps:function(){
+		return {name:'无名氏'}
+	},
+	render: function() {
+		//属性可以通过属性对象this.props中取出
+		return (<h1>
+			        {this.props.name}
+					{this.props.gender}
+					{this.props.age}
+	            </h1>);
+	}
+});
+var props = {
+	gender:'男',
+	age:18
+}
+ReactDOM.render(
+<Person {...props} />,//属性可以在使用组件时传入
+document.getElementById('app')
+);
+</script>

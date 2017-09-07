@@ -1,0 +1,256 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 2017-8-25
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>分时与节流 - By 胡文哲</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.color.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide fill" style="background-image:url('http://www.ruanyifeng.com/images_pub/pub_47.jpg')"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>分时与节流</h1>
+<h2>演讲者：胡文哲</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>1. 分时和节流</h1>
+<h2>其实是两种场景下的JS性能优化的方案。你尽可以想象成倚天剑和屠龙刀，都是非常锋利好用的东东，起码切个大白菜胡萝卜啥的是肯定没问题的~~</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>2. 节流函数</h1>
+<p>js中的<strong>函数</strong>，大多情况都是由用户<strong>主观</strong>上触发的。
+比如点击某个按钮触发某函数啊，文本框内容改变时触发某函数啊等等，这种情况一般是不需要考虑性能问题的。
+但是有些情况下，函数的触发并不受用户的直接控制。在这些场景下，函数就会被过度频繁的调用造成性能下降的问题了，比如以下情况：</p>
+<h2>1.window.onresize事件。</h2>
+<p>我们给window对象绑定了resize事件，当浏览器大小改变时，这个事件的触发频率特别高。</p>
+<h2>2.mousemove事件。</h2>
+<p>如果我们给一个div节点绑定了拖拽事件，那么div节点被拖动时，也会频繁的触发该拖拽事件的函数。</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<img data-type="gif" src="../img/0.gif">
+<pre><code>&lt;head lang=&quot;en&quot;&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;不节流&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;script&gt;
+//不节流
+window.onresize = function(){
+console.log(&#39;hello&#39;);
+};
+&lt;/script&gt;
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<pre><code>&lt;script&gt;
+//************节流函数**********************
+var throttle = function(fn,interval){
+var _self = fn;//保存需要被延时执行的函数引用
+var timer;//定时器
+var firstTime = true;//是否是第一次调用
+return function(){
+//将参数列表和this都先保存下来，以备延时函数调用
+var args = arguments;
+var _me = this;
+console.log(_me);//追踪this的指向
+if(firstTime){//如果是第一次调用，不需要延迟执行
+_self.apply(_me,args);//调用函数
+firstTime = false;//将标志位置为假
+return;//执行完函数后返回，下面的代码无需执行
+}
+if(timer){//如果定时器还在，说明前一次延迟执行还没完成，直接返回，下面的代码无需执行
+return;
+}
+
+timer = setTimeout(function(){
+clearTimeout(timer);//清空timer
+timer = null;
+_self.apply(_me,args);//调用函数
+},interval || 500);
+};
+};
+
+//测试一下节流吧~~
+window.onresize = throttle(function(){
+console.log(&#39;hello&#39;);//这里要注意this作用域问题，这里是指向外面的window
+});
+
+&lt;/script&gt;
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<img data-type="gif" src="../img/1.gif">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>2. 分时函数</h1>
+<p>有时，某些函数确实是用户主动调用的，但因为一些客观的原因，这些函数严重的影响了页面性能。
+比如<strong>数据量庞大的列表</strong></p>
+<pre><code>&lt;script&gt;
+
+var arr = [];//900个好友的数据
+for(var i=0;i&lt;900;i++){
+arr.push({name:i});
+}
+//渲染好友列表
+var renderFriendList = function(data){
+for(var i=0;i&lt;data.length;i++){
+var div = document.createElement(&#39;div&#39;);
+div.innerHTML = &quot;朋友&quot;+data[i][&#39;name&#39;];
+document.body.appendChild(div);
+}
+};
+
+renderFriendList(arr);
+&lt;/script&gt;
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>&nbsp;</h1>
+<h2>那么这种情况下，我们就可以利用setInterval函数来分时创建了。</h2>
+<p>   比如有900条数据，我可以一次只创建10个dom节点，分90次创建完。这样做因为有时间段间隔开了，内存和cpu就有了腾挪余地，不至于出现卡顿或死翘翘了。</p>
+<pre><code>&lt;script&gt;
+var arr = [];//900个好友的数据
+for(var i=0;i&lt;900;i++){
+arr.push({name:i});
+}
+//创建一个好友节点
+var createOneFriend = function(data){
+var div = document.createElement(&#39;div&#39;);
+div.innerHTML = &quot;朋友&quot;+data[&#39;name&#39;];
+document.body.appendChild(div);
+};
+&lt;/script&gt;
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<pre><code>&lt;script&gt;
+//***************分时函数**********************
+//arr是数据，fn是回调函数，count是每次创建的节点数
+var timechunk = function(arr,fn,count){
+var timer;
+//创建dom节点函数
+var start = function(){
+for(var i=0;i&lt;Math.min(count,arr.length);i++){//最后一批数据，可能arr.length小于count
+var obj = arr.shift();//数组出列1个数据，长度减1
+fn(obj);//调用
+}
+};
+return function(){
+timer = setInterval(function(){
+if(arr.length ===0){//数组容器为空，说明都创建完毕了
+clearInterval(timer);//清除定时器
+return;//返回
+}
+start();//开始创建节点
+},500);//时间间隔为500毫秒
+};
+};
+//分批渲染，每次创建10个节点
+var renderList = timechunk(arr,createOneFriend,10);
+//测试一下吧~~
+renderList();
+&lt;/script&gt;
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>end</p>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'move',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
